@@ -1,19 +1,22 @@
 import './Register.css';
-import { useRef, useEffect, useState, SyntheticEvent } from 'react';
-import { LuInfo, LuLoader2, LuGithub } from 'react-icons/lu';
-import { DiscordLogoIcon } from '@radix-ui/react-icons';
-import { BiMovie } from 'react-icons/bi';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { cn } from '@/lib/utils';
+import { useRef, useEffect, useState, SyntheticEvent } from 'react';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { buttonVariants, Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/mode-toggle';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { LuInfo, LuLoader2, LuGithub } from 'react-icons/lu';
+import { DiscordLogoIcon } from '@radix-ui/react-icons';
+import { BiMovie } from 'react-icons/bi';
+import axios from '@/api/axios';
+import { AxiosError } from 'axios';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,32}$/;
 const EMAIL_REGEX = /^[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,}$/;
 const PWD_REGEX =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()\-_=+\\|[\]{};:'",.<>/?]).{8,192}$/;
+const REGISTER_URL = '/api/auth/register';
 
 const Register = () => {
     const userRef = useRef<HTMLInputElement>(null);
@@ -87,11 +90,41 @@ const Register = () => {
             return;
         }
 
-        // submit
+        try {
+            const response = await axios.post(
+                REGISTER_URL,
+                {
+                    // name: user,
+                    email: email,
+                    password: password,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                    },
+                }
+            );
 
-        setTimeout(() => {
+            console.log(response.data);
+            console.log(JSON.stringify(response));
+        } catch (err: unknown) {
+            if (!(err instanceof AxiosError)) {
+                setErrorMessage('Internal Server Error.');
+                return;
+            }
+
+            if (!err?.response) {
+                setErrorMessage('No Server Response');
+                return;
+            }
+
+            if (err.response?.status === 422) {
+                console.log(err.response.data);
+            }
+        } finally {
             setIsLoading(false);
-        }, 3000);
+        }
     }
 
     return (
