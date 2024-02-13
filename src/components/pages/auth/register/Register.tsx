@@ -2,10 +2,9 @@ import { cn } from '@/lib/utils';
 
 import { buttonVariants } from '@/components/ui/button';
 import { ModeToggle } from '@/components/mode-toggle';
-import { BiMovie } from 'react-icons/bi';
+import { RiMovie2Line } from 'react-icons/ri';
 import RegisterForm from './RegisterForm';
-import { SparklesCore } from '@/components/ui/sparkles';
-import SideBackgroundImage from '@/assets/tickets.jpg';
+import SideBackgroundImage from '@/assets/cinema.jpg';
 
 const Register = () => {
     return (
@@ -28,19 +27,9 @@ const Register = () => {
                             backgroundImage: `url(${SideBackgroundImage})`,
                             backgroundSize: 'cover',
                         }}
-                    >
-                        <SparklesCore
-                            id="tsparticlesfullpage"
-                            background="transparent"
-                            minSize={0.5}
-                            maxSize={1}
-                            particleDensity={50}
-                            className="w-full h-full"
-                            particleColor="#888888"
-                        />
-                    </div>
+                    ></div>
                     <div className="relative z-20 flex items-center text-lg font-medium">
-                        <BiMovie className="mr-2 h-6 w-6" />
+                        <RiMovie2Line className="mr-2 h-6 w-6" />
                         Watchlist
                     </div>
                     <div className="relative z-20 mt-auto">

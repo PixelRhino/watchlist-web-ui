@@ -1,4 +1,5 @@
-import { useRef, useEffect, useState, SyntheticEvent } from 'react';
+import { useRef, useEffect, useState, SyntheticEvent, useContext } from 'react';
+import AuthContext from '@/context/AuthProvider';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -11,6 +12,8 @@ import { AxiosError } from 'axios';
 const LOGIN_URL = '/api/auth/login';
 
 const LoginForm = () => {
+    const { setAuth } = useContext(AuthContext);
+
     const emailRef = useRef<HTMLInputElement>(null);
     const errRef = useRef<HTMLDivElement>(null);
 
@@ -59,6 +62,9 @@ const LoginForm = () => {
 
             console.log(response.data);
             console.log(JSON.stringify(response));
+
+            setEmail('');
+            setPassword('');
         } catch (err: unknown) {
             if (!(err instanceof AxiosError)) {
                 setErrorMessage('Internal Server Error.');
@@ -66,8 +72,12 @@ const LoginForm = () => {
             }
 
             if (!err?.response) {
-                setErrorMessage('No Server Response');
+                setErrorMessage('No Server Response.');
                 return;
+            }
+
+            if (err.response?.status === 401) {
+                setErrorMessage('Invalid email and/or password.');
             }
 
             if (err.response?.status === 422) {
