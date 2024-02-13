@@ -233,7 +233,7 @@ export const SparklesCore = (props: ParticlesProps) => {
                             },
                             opacity: {
                                 value: {
-                                    min: 0.1,
+                                    min: 0.5,
                                     max: 1,
                                 },
                                 animation: {
