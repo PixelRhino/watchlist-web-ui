@@ -32,11 +32,11 @@ const Register = () => {
                         <SparklesCore
                             id="tsparticlesfullpage"
                             background="transparent"
-                            minSize={0.6}
-                            maxSize={1.4}
-                            particleDensity={100}
+                            minSize={0.5}
+                            maxSize={1}
+                            particleDensity={50}
                             className="w-full h-full"
-                            particleColor="#FFFFFF"
+                            particleColor="#888888"
                         />
                     </div>
                     <div className="relative z-20 flex items-center text-lg font-medium">
@@ -70,7 +70,7 @@ const Register = () => {
                         </div>
                         <RegisterForm></RegisterForm>
                         <p className="px-8 text-center text-sm text-muted-foreground">
-                            By clicking continue, you agree to our{' '}
+                            By clicking "Create an account", you agree to our{' '}
                             <a
                                 href="/terms"
                                 className="underline underline-offset-4 hover:text-primary"

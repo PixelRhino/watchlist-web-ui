@@ -90,7 +90,7 @@ const RegisterForm = () => {
             const response = await axios.post(
                 REGISTER_URL,
                 {
-                    // name: user,
+                    name: user,
                     email: email,
                     password: password,
                 },
